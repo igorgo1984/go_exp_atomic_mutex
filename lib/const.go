@@ -1,4 +1,4 @@
 package lib
 
 const CountInc = 10000
-const CountGorotine = 100
+const CountGoroutine = 100

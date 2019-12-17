@@ -1,0 +1,8 @@
+AtomicMutex best
+Mutex Хуже. Потому что имеет состаянтие :
+	mutexLocked = 1 << iota // mutex is locked
+	mutexWoken
+	mutexStarving
+	mutexWaiterShift = iota
+
+И соответвующие механизмы для отслеживания и изменения их.

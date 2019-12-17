@@ -22,11 +22,11 @@ func (i *atomicCounter) Value() int64 {
 
 func CountAtomic() int64 {
 	wg := sync.WaitGroup{}
-	wg.Add(CountGorotine)
+	wg.Add(CountGoroutine)
 
 	counter := atomicCounter{}
 
-	for i := 0; i < CountGorotine; i++ {
+	for i := 0; i < CountGoroutine; i++ {
 		go func(wg *sync.WaitGroup) {
 			for i := 0; i < CountInc; i++ {
 				counter.Add()

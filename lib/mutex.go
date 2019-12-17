@@ -27,11 +27,11 @@ func (i *mutexCounter) Value() int64 {
 
 func CountMutex() int64 {
 	wg := sync.WaitGroup{}
-	wg.Add(CountGorotine)
+	wg.Add(CountGoroutine)
 
 	counter := mutexCounter{}
 
-	for i := 0; i < CountGorotine; i++ {
+	for i := 0; i < CountGoroutine; i++ {
 		go func(wg *sync.WaitGroup) {
 			for i := 0; i < CountInc; i++ {
 				counter.Add()

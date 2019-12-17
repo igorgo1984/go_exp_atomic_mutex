@@ -9,21 +9,21 @@ import (
 func TestAtomicMutex(t *testing.T) {
 	Convey("Atomic mutex", t, func() {
 		res := lib.CountAtomicMutex()
-		So(res, ShouldEqual, lib.CountInc*lib.CountGorotine)
+		So(res, ShouldEqual, lib.CountInc*lib.CountGoroutine)
 	})
 }
 
 func TestAtomic(t *testing.T) {
 	Convey("Atomic", t, func() {
 		res := lib.CountAtomic()
-		So(res, ShouldEqual, lib.CountInc*lib.CountGorotine)
+		So(res, ShouldEqual, lib.CountInc*lib.CountGoroutine)
 	})
 }
 
 func TestMutex(t *testing.T) {
 	Convey("Mutex", t, func() {
 		res := lib.CountMutex()
-		So(res, ShouldEqual, lib.CountInc*lib.CountGorotine)
+		So(res, ShouldEqual, lib.CountInc*lib.CountGoroutine)
 	})
 }
 

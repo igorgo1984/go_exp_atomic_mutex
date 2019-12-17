@@ -17,12 +17,20 @@ type atomicMutex struct {
 }
 
 func (lock *atomicMutex) Lock() {
+	for atomic.LoadInt32(&lock.state) == locked{
+		runtime.Gosched()
+	}
+
 	for !atomic.CompareAndSwapInt32(&lock.state, unlocked, locked) {
 		runtime.Gosched()
 	}
 }
 
 func (lock *atomicMutex) Unlock() {
+	for atomic.LoadInt32(&lock.state) == unlocked {
+		runtime.Gosched()
+	}
+
 	for !atomic.CompareAndSwapInt32(&lock.state, locked, unlocked) {
 		runtime.Gosched()
 	}
@@ -49,17 +57,17 @@ func (i *atomicMutexCounter) Value() int64 {
 
 func CountAtomicMutex() int64 {
 	wg := sync.WaitGroup{}
-	wg.Add(CountGorotine)
+	wg.Add(CountGoroutine)
 
 	counter := atomicMutexCounter{}
 
-	for i := 0; i < CountGorotine; i++ {
-		go func(wg *sync.WaitGroup) {
+	for i := 0; i < CountGoroutine; i++ {
+		go func(wg *sync.WaitGroup, n int) {
 			for i := 0; i < CountInc; i++ {
 				counter.Add()
 			}
 			wg.Done()
-		}(&wg)
+		}(&wg, i)
 	}
 
 	wg.Wait()
