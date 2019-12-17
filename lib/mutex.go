@@ -3,7 +3,9 @@ package lib
 import "sync"
 
 type mutexCounter struct {
-	sync.RWMutex
+	// Simple mutex be fasted
+	//sync.RWMutex
+	sync.Mutex
 	val int64
 }
 
@@ -14,9 +16,11 @@ func (i *mutexCounter) Add() {
 }
 
 func (i *mutexCounter) Value() int64 {
-	i.RLock()
+	//i.RLock()
+	i.Lock()
 	v := i.val
-	i.RUnlock()
+	i.Unlock()
+	//i.RUnlock()
 
 	return v
 }

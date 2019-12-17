@@ -7,3 +7,13 @@ BenchmarkMutex-4         	      10	 177118447 ns/op
 PASS
 ok  	go_exp_atomic_mutex	4.429s
 ?   	go_exp_atomic_mutex/lib	[no test files]
+// Use simple mutex (not rw_mutex)
+goos: linux
+goarch: amd64
+pkg: go_exp_atomic_mutex
+BenchmarkAtomicMutex-4   	      20	  58438856 ns/op
+BenchmarkAtomic-4        	       5	 209840863 ns/op
+BenchmarkMutex-4         	      10	 150772197 ns/op
+PASS
+ok  	go_exp_atomic_mutex	4.133s
+?   	go_exp_atomic_mutex/lib	[no test files]
