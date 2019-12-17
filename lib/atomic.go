@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"runtime"
 	"sync"
 	"sync/atomic"
 )
@@ -11,6 +12,8 @@ type atomicCounter struct {
 
 func (i *atomicCounter) Add() {
 	atomic.AddInt64(&i.val, 1)
+	// Without be fast. But need run atomic iteration
+	runtime.Gosched()
 }
 
 func (i *atomicCounter) Value() int64 {

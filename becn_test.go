@@ -6,6 +6,13 @@ import (
 	"testing"
 )
 
+func TestAtomicMutex(t *testing.T) {
+	Convey("Atomic mutex", t, func() {
+		res := lib.CountAtomicMutex()
+		So(res, ShouldEqual, lib.CountInc*lib.CountGorotine)
+	})
+}
+
 func TestAtomic(t *testing.T) {
 	Convey("Atomic", t, func() {
 		res := lib.CountAtomic()
@@ -18,6 +25,12 @@ func TestMutex(t *testing.T) {
 		res := lib.CountMutex()
 		So(res, ShouldEqual, lib.CountInc*lib.CountGorotine)
 	})
+}
+
+func BenchmarkAtomicMutex(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = lib.CountAtomicMutex()
+	}
 }
 
 func BenchmarkAtomic(b *testing.B) {
